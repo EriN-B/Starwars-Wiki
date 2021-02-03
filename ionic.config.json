@@ -1,0 +1,7 @@
+{
+  "name": "ion-api",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
