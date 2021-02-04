@@ -1,20 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Star Wars Wiki</ion-title>
     </ion-toolbar>
   </ion-header>
+	<ion-item>
+		<ion-label>Select</ion-label>
+		<ionic-selectable item-content [(ngModel)]="search" itemValueField="id" itemTextField="name" [items]="searches" [canSearch]="true" (onChange)="userChanged($event)" (onClose)="onClose()">
+		</ionic-selectable>
+	</ion-item>
+  <div class="current-search">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Search for People -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle *ngIf="this.eventData">{{this.eventData.index}}</ion-card-subtitle>
+        <ion-card-title>{{this.researchResults.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label *ngIf="this.researchResults.species"><h3>species: </h3>{{this.searchSpecies}}</ion-label><br>
+        <ion-label *ngIf="this.researchResults.homeworld"><h3>Homeworld: </h3>{{this.searchHome}}</ion-label><br>
+        <ion-label *ngIf="this.researchResults.height"><h3>Height: </h3>{{this.researchResults.height}}cm</ion-label><br>
+        <ion-label *ngIf="this.researchResults.mass"><h3>Mass: </h3>{{this.researchResults.mass}}kg</ion-label><br>
+        <ion-label *ngIf="this.researchResults.birth_year"><h3>Birth Year: </h3>{{this.researchResults.birth_year}} (Before Battle of Yavin)</ion-label><br>
+        <ion-label *ngIf="this.researchResults.films"><h3>Films: </h3></ion-label><br>
+        <ion-label>
+          <ol>
+            <li *ngFor="let film of films">{{film.title}}</li>
+          </ol>
+        </ion-label>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Search for Planet -->
   </div>
 </ion-content>
