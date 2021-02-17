@@ -11,10 +11,13 @@
 	</ion-item>
   <div class="current-search">
 
-    <!-- Search for People -->
+    <!--People -->
     <ion-card>
       <ion-card-header>
-        <ion-card-subtitle *ngIf="this.eventData">{{this.eventData.index}}</ion-card-subtitle>
+        <ion-item *ngIf="this.researchResults.height">
+          <ion-icon (click)="pinItem()" slot="end" name="pin-outline"></ion-icon>
+          <ion-card-subtitle *ngIf="this.eventData">{{this.eventData.index}}</ion-card-subtitle>
+        </ion-item>
         <ion-card-title>{{this.researchResults.name}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -31,7 +34,36 @@
         </ion-label>
       </ion-card-content>
     </ion-card>
+    <ion-title *ngIf="this.pinned.length <= 0">Pinned Items</ion-title>
+    <p class="pinned-information" *ngIf="this.pinned.length <= 0"> Nothing pinned yet</p>
 
-    <!-- Search for Planet -->
+    <!-- pinned -->
+    <ion-list class="pinned-list" *ngIf="this.pinned.length > 0">
+      <ion-title>Pinned Items</ion-title>
+      <ion-item class="pinned-item" *ngFor="let pin of pinned">
+        <ion-card color="light" class="pinned-card">
+          <ion-card-header>
+            <ion-item>
+              <ion-icon (click)="removePin(pin.id,pin)" slot="end" name="close-outline"></ion-icon>
+              <ion-card-subtitle>{{this.pin.index}}</ion-card-subtitle>
+            </ion-item>
+            <ion-card-title>{{this.pin.name}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label><h3>species: </h3>{{pin.species}}</ion-label>
+            <ion-label><h3>Homeworld: </h3>{{pin.homeworld}}</ion-label>
+            <ion-label><h3>Height: </h3>{{pin.height}}cm</ion-label>
+            <ion-label><h3>Mass: </h3>{{pin.mass}}kg</ion-label>
+            <ion-label><h3>Birth Year: </h3>{{pin.birth}} (Before Battle of Yavin)</ion-label>
+            <ion-label><h3>Films: </h3></ion-label><br>
+            <ion-label>
+              <ol>
+                <li *ngFor="let film of films">{{film.title}}</li>
+              </ol>
+            </ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

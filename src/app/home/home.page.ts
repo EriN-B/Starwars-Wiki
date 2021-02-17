@@ -16,7 +16,7 @@ export class HomePage {
   recentSeaches = true;
   idIndex = 0;
 
-  Displays:any=[];
+  pinned:any=[];
   
   searchData;
   searchHome;
@@ -246,7 +246,6 @@ export class HomePage {
       this.getFilms(data);
       this.getHomePlanet(data);
       this.getSpecies(data);
-      this.safeDisplay();
   },
   (err: HttpErrorResponse) => {
     if (err.error instanceof Error) {
@@ -306,19 +305,33 @@ export class HomePage {
     });
   }
  }
- safeDisplay(){
-   this.Displays.push({
+ openFromCose(){
+   this.selectComponent.open();
+ }
+
+ pinItem(){
+  this.pinned.push({
     id: this.idIndex, 
+    index: this.searchIndex,
+    name: this.researchResults.name,
     species: this.searchSpecies,
     homeworld: this.searchHome,
     height: this.researchResults.height,
     mass: this.researchResults.mass,
-    films: this.films
+    films: this.films,
+    birth: this.researchResults.birth,
   })
-
-  console.log(this.Displays);
+  this.idIndex+=1;
+  console.log(this.pinned);
  }
- openFromCose(){
-   this.selectComponent.open();
+ removePin(id,pin){
+  console.log(pin.find(res =>{
+    return res.id === id;
+  }));
+   /*
+   this.pinned.forEach((element, index) => {
+     this.pinned.splice.where(pin.id == id);
+   })
+*/
  }
 }
